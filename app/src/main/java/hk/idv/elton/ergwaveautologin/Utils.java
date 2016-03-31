@@ -21,7 +21,6 @@ import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
-import org.dyndns.pawitp.muwifiautologin.R;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;

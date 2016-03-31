@@ -30,14 +30,14 @@
 	<string name="pref_author_summary">Forked from MU-Wifi (pawitp @ MUICT9)</string>
 	<string name="wifi_disabled">WiFi needs to be enabled to use autologin.</string>
 	<string name="no_login_required">No login required.</string>
-	<string name="login_successful">Automatic login to MU-WiFi successful.</string>
+	<string name="login_successful">Automatic login to ERGWAVE successful.</string>
 	<string name="logout_successful">Logout successful.</string>
 	<string name="notify_login_ongoing_title">ERGWAVE Autologin</string>
 	<string name="notify_login_ongoing_text_determine_requirement">Determining if login is required…</string>
 	<string name="notify_login_ongoing_text_logging_in">Logging in…</string>
 	<string name="notify_logout_ongoing_text">Logging out…</string>
-	<string name="notify_login_error_title">Unable to login to MU-WiFi</string>
-	<string name="notify_logout_error_title">Unable to logout from MU-WiFi</string>
+	<string name="notify_login_error_title">Unable to login to ERGWAVE</string>
+	<string name="notify_logout_error_title">Unable to logout from ERGWAVE</string>
 	<string name="notify_login_error_text">Click to retry.</string>
 	<string name="notify_request_wifi_ongoing_text">Requesting Wi-Fi communication…</string>
 	<string name="notify_request_wifi_error_text">Unable to request Wi-Fi communication</string>
