@@ -1,4 +1,4 @@
-package org.dyndns.pawitp.muwifiautologin;
+package hk.idv.elton.ergwaveautologin;
 
 import android.util.Log;
 
@@ -14,24 +14,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-// Client for IC-WiFi system running on Cisco without SSL
-public class IcClient implements LoginClient {
+// Client for MU-WiFi system running on Aruba Networks
+public class CiscoClient implements LoginClient {
 
-    private static final String TAG = "IcClient";
+    private static final String TAG = "CiscoClient";
 
     // These are not regex
-    private static final String LOGIN_SUCCESSFUL_PATTERN = "You can now use all our regular network services over the wireless network.";
+    private static final String LOGIN_FAIL_PATTERN = "<INPUT TYPE=\"hidden\" NAME=\"err_flag\" SIZE=\"16\" MAXLENGTH=\"15\" VALUE=\"1\">";
     private static final String LOGOUT_SUCCESSFUL_PATTERN = "To complete the log off process and to prevent access";
 
     private static final String FORM_USERNAME = "username";
     private static final String FORM_PASSWORD = "password";
-    private static final String FORM_URL = "https://icwifi.mahidol.ac.th/login.html";
-    private static final String LOGOUT_URL = "https://icwifi.mahidol.ac.th/logout.html";
+    private static final String FORM_URL = "https://1.1.1.1/login.html";
+    private static final String LOGOUT_URL = "https://1.1.1.1/logout.html";
 
     private DefaultHttpClient mHttpClient;
 
-    public IcClient() {
-        mHttpClient = Utils.createHttpClient(false, null);
+    public CiscoClient() {
+        mHttpClient = Utils.createHttpClient(true, null);
+        // TODO: Add certificate pinning
     }
 
     public void login(String username, String password) throws IOException, LoginException {
@@ -52,11 +53,11 @@ public class IcClient implements LoginClient {
 
         Log.d(TAG, strRes);
 
-        if (strRes.contains(LOGIN_SUCCESSFUL_PATTERN)) {
-            // login successful
+        if (strRes.contains(LOGIN_FAIL_PATTERN)) {
+            // login fail (extracted message from server)
+            throw new LoginException("The User Name and Password combination you have entered is invalid. Please try again.");
         } else {
-            // login fail
-            throw new LoginException("Incorrect username or password.");
+            // login successful
         }
     }
 
@@ -86,7 +87,7 @@ public class IcClient implements LoginClient {
 
     @Override
     public boolean allowAuto() {
-        return true;
+        return false;
     }
 
 }

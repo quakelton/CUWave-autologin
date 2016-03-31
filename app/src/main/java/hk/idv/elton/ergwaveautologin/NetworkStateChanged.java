@@ -1,4 +1,4 @@
-package org.dyndns.pawitp.muwifiautologin;
+package hk.idv.elton.ergwaveautologin;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

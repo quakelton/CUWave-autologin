@@ -1,4 +1,4 @@
-package org.dyndns.pawitp.muwifiautologin;
+package hk.idv.elton.ergwaveautologin;
 
 import android.annotation.TargetApi;
 import android.app.IntentService;
@@ -21,6 +21,7 @@ import android.widget.Toast;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;
+import org.dyndns.pawitp.muwifiautologin.R;
 
 import java.io.IOException;
 

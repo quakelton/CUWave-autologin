@@ -1,8 +1,4 @@
-package org.dyndns.pawitp.muwifiautologin;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+package hk.idv.elton.ergwaveautologin;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,12 +10,17 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.widget.BaseAdapter;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+
 public class Preferences extends PreferenceActivity implements OnSharedPreferenceChangeListener {
     public static final String KEY_LOGIN_NOW = "login_now";
     public static final String KEY_LOGOUT_NOW = "logout_now";
     public static final String KEY_ENABLED = "enabled";
     public static final String KEY_USERNAME = "username";
     public static final String KEY_PASSWORD = "password";
+    public static final String KEY_FQDN = "fqdn";
     public static final String KEY_ERROR_NOTIFY = "error_notify";
     public static final String KEY_ERROR_NOTIFY_SOUND = "error_notify_sound";
     public static final String KEY_ERROR_NOTIFY_VIBRATE = "error_notify_vibrate";
@@ -47,6 +48,7 @@ public class Preferences extends PreferenceActivity implements OnSharedPreferenc
         addPreferencesFromResource(R.xml.preferences);
 
         updateUsernameSummary();
+        updateFQDNSummary();
         updateErrorNotificationSummary();
         updateToastNotificationSummary();
         updateLanguageSummary();
@@ -133,6 +135,9 @@ public class Preferences extends PreferenceActivity implements OnSharedPreferenc
         else if (key.equals(KEY_USERNAME)) {
             updateUsernameSummary();
         }
+        else if (key.equals(KEY_FQDN)) {
+            updateFQDNSummary();
+        }
         else if (key.equals(KEY_ERROR_NOTIFY_SOUND)
                 || key.equals(KEY_ERROR_NOTIFY_VIBRATE)
                 || key.equals(KEY_ERROR_NOTIFY_LIGHTS)) {
@@ -170,6 +175,16 @@ public class Preferences extends PreferenceActivity implements OnSharedPreferenc
             findPreference(KEY_USERNAME).setSummary(username);
         } else {
             findPreference(KEY_USERNAME).setSummary(R.string.pref_username_summary);
+        }
+    }
+
+    private void updateFQDNSummary() {
+        // Set FQDN as summary if set
+        String fqdn = getPreferenceManager().getSharedPreferences().getString(KEY_FQDN, "");
+        if (fqdn.length() != 0) {
+            findPreference(KEY_FQDN).setSummary(fqdn);
+        } else {
+            findPreference(KEY_FQDN).setSummary(R.string.pref_fqdn_summary);
         }
     }
 

@@ -1,4 +1,4 @@
-package org.dyndns.pawitp.muwifiautologin;
+package hk.idv.elton.ergwaveautologin;
 
 import android.annotation.TargetApi;
 import android.os.Build;

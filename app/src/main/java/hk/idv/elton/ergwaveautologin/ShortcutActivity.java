@@ -1,4 +1,4 @@
-package org.dyndns.pawitp.muwifiautologin;
+package hk.idv.elton.ergwaveautologin;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+
+import org.dyndns.pawitp.muwifiautologin.R;
 
 public class ShortcutActivity extends Activity {
 

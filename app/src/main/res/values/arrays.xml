@@ -3,12 +3,10 @@
 	<string-array name="languages_values" translatable="false">
 		<item>default</item>
 		<item>en</item>
-		<item>th</item>
 	</string-array>
 	
 	<string-array name="languages">
 		<item>Default</item>
 		<item>English</item>
-		<item>Thai</item>
 	</string-array>
 </resources>

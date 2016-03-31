@@ -17,6 +17,10 @@
 			android:password="true"
 			android:title="@string/pref_password"
 			android:summary="@string/pref_password_summary"/>
+		<EditTextPreference
+			android:key="fqdn"
+			android:title="@string/pref_fqdn"
+			android:summary="@string/pref_fqdn_summary"/>
 		<PreferenceScreen
 			android:title="@string/pref_error_notify_title"
 			android:key="error_notify">
