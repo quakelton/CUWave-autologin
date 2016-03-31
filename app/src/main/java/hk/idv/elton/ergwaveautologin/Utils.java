@@ -82,6 +82,8 @@ public class Utils {
 
                 // Use default HTTP client
                 httpClient = new DefaultHttpClient(params);
+                CustomRedirectHandler redirectHandler = new CustomRedirectHandler();
+                httpClient.setRedirectHandler(redirectHandler);
             } else {
                 // Create an HTTP client that doesn't verify SSL certificates
                 KeyStore trustStore = KeyStore.getInstance(KeyStore.getDefaultType());
@@ -96,6 +98,8 @@ public class Utils {
 
                 ClientConnectionManager ccm = new ThreadSafeClientConnManager(params, registry);
                 httpClient = new DefaultHttpClient(ccm, params);
+                CustomRedirectHandler redirectHandler = new CustomRedirectHandler();
+                httpClient.setRedirectHandler(redirectHandler);
             }
 
             // Also retry POST requests (normally not retried because it is not regarded idempotent)
