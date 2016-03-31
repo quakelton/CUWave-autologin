@@ -8,6 +8,7 @@
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
 	<uses-permission android:name="android.permission.INTERNET"></uses-permission>
 	<uses-permission android:name="android.permission.VIBRATE"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
 
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:allowBackup="false">
         <activity android:name="hk.idv.elton.ergwaveautologin.Preferences"
@@ -48,6 +49,14 @@
 	    		<action android:name="android.net.wifi.STATE_CHANGE"/>
 	    	</intent-filter>
 		</receiver>
+
 	    <service android:name="hk.idv.elton.ergwaveautologin.MuWifiLogin"></service>
+
+        <receiver android:name=".BootUpReceiver" android:label="BootUpReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+            </intent-filter>
+        </receiver>
 	</application>
 </manifest> 
