@@ -21,7 +21,6 @@ import android.widget.Toast;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.util.EntityUtils;
-import org.dyndns.pawitp.muwifiautologin.R;
 
 import java.io.IOException;
 
@@ -146,9 +145,12 @@ public class MuWifiLogin extends IntentService {
 
                     String username = mPrefs.getString(Preferences.KEY_USERNAME, null);
                     String password = mPrefs.getString(Preferences.KEY_PASSWORD, null);
+                    String fqdn = mPrefs.getString(Preferences.KEY_FQDN, null);
+                    String cmd = "authenticate";
+                    String login = "Log In";
 
                     updateOngoingNotification(getString(R.string.notify_login_ongoing_text_logging_in), true);
-                    loginClient.login(username, password);
+                    loginClient.login(username, password, fqdn, cmd, login);
 
                     if (mPrefs.getBoolean(Preferences.KEY_TOAST_NOTIFY_SUCCESS, true)) {
                         createToastNotification(R.string.login_successful, Toast.LENGTH_SHORT);
