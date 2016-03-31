@@ -281,19 +281,7 @@ public class MuWifiLogin extends IntentService {
         WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
         String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
         Log.d(TAG, "IP :" + ip);
-        if (ip.startsWith("10.7.")) {
-            // Cisco IP
-            Log.v(TAG, "Cisco network");
-            return new CiscoClient();
-        }
-        else if (ip.startsWith("10.27.")) {
-            // IC-WiFi IP
-            Log.v(TAG, "IC-WiFi network");
-            return new IcClient();
-        }
-        else {
-            // Assume Aruba
-            return new ArubaClient(this);
-        }
+      
+        return new ArubaClient(this);
     }
 }
