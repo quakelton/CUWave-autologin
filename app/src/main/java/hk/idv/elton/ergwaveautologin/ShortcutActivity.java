@@ -7,11 +7,9 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 
-import org.dyndns.pawitp.muwifiautologin.R;
-
 public class ShortcutActivity extends Activity {
 
-    public static final String SHORTCUT_INTENT = "org.dyndns.pawitp.muwifiautologin.SHORTCUT";
+    public static final String SHORTCUT_INTENT = "hk.idv.elton.ergwaveautologin.SHORTCUT";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
