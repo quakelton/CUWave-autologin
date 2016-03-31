@@ -12,7 +12,7 @@ import android.util.Log;
 public class NetworkStateChanged extends BroadcastReceiver {
 
     private static final String TAG = "NetworkStateChanged";
-    private static final String[] SSID = {"MU-WiFi", "IC-WiFi"};
+    private static final String[] SSID = {"ERGWAVE", "ERGWAVE-5g"};
 
     @Override
     public void onReceive(Context context, Intent intent) {
