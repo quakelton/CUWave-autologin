@@ -3,21 +3,27 @@ package hk.idv.elton.cuwaveautologin;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.widget.BaseAdapter;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
-public class Preferences extends PreferenceActivity implements OnSharedPreferenceChangeListener {
+public class Preferences extends PreferenceActivity implements OnSharedPreferenceChangeListener, ActivityCompat.OnRequestPermissionsResultCallback {
     public static final String KEY_LOGIN_NOW = "login_now";
     public static final String KEY_LOGOUT_NOW = "logout_now";
     public static final String KEY_ENABLED = "enabled";
+    public static final String KEY_COMPUTINGID = "computingid";
+    public static final String KEY_CWEM_PASSWORD = "cwempassword";
     public static final String KEY_USERNAME = "username";
     public static final String KEY_PASSWORD = "password";
     public static final String KEY_FQDN = "fqdn";
@@ -33,20 +39,34 @@ public class Preferences extends PreferenceActivity implements OnSharedPreferenc
     public static final String KEY_WEBSITE = "website";
     public static final String KEY_AUTHOR = "author";
 
+    public static final String FQDN_DEFAULT = "";
     public static final String LANGUAGE_DEFAULT = "default";
     public static final String MARKET_PREFIX = "market://details?id=";
     public static final String EMAIL_TYPE = "message/rfc822";
-    public static final String EMAIL_AUTHOR = "p.pawit@gmail.com";
-    public static final String EMAIL_SUBJECT = "[MU-WiFi Autologin] ";
-    public static final String WEBSITE_URL = "http://pawitp.dats.us/muwifi-autologin/";
+    public static final String EMAIL_AUTHOR = "cuwave-autologin@elton.tk";
+    public static final String EMAIL_SUBJECT = "[CUWave Autologin] Debug Log";
+    public static final String GITHUB_URL = "https://github.com/quakelton/CUWave-autologin";
+    public static final String WEBSITE_URL = "https://elton.tk/cuwave";
+
+    public static final int MY_PERMISSION_ACCESS_COARSE_LOCATION = 11;
 
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[] {
+                            android.Manifest.permission.ACCESS_COARSE_LOCATION
+                }, MY_PERMISSION_ACCESS_COARSE_LOCATION);
+            }
+        }
+
         Utils.loadLocale(this);
         addPreferencesFromResource(R.xml.preferences);
 
+        updateComputingIdSummary();
         updateUsernameSummary();
         updateFQDNSummary();
         updateErrorNotificationSummary();
@@ -79,7 +99,8 @@ public class Preferences extends PreferenceActivity implements OnSharedPreferenc
         findPreference(KEY_VERSION).setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(MARKET_PREFIX + getPackageName()));
+                //Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(MARKET_PREFIX + getPackageName()));
+                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(GITHUB_URL));
                 startActivity(i);
                 return true;
             }
@@ -132,6 +153,9 @@ public class Preferences extends PreferenceActivity implements OnSharedPreferenc
         if (key.equals(KEY_ENABLED)) {
             updateEnabled();
         }
+        else if (key.equals(KEY_COMPUTINGID)) {
+            updateComputingIdSummary();
+        }
         else if (key.equals(KEY_USERNAME)) {
             updateUsernameSummary();
         }
@@ -168,6 +192,16 @@ public class Preferences extends PreferenceActivity implements OnSharedPreferenc
         Utils.setEnableBroadcastReceiver(this, enabled);
     }
 
+    private void updateComputingIdSummary() {
+        // Set computingId as summary if set
+        String computingId = getPreferenceManager().getSharedPreferences().getString(KEY_COMPUTINGID, "");
+        if (computingId.length() != 0) {
+            findPreference(KEY_COMPUTINGID).setSummary(computingId);
+        } else {
+            findPreference(KEY_COMPUTINGID).setSummary(R.string.pref_cwem_username_summary);
+        }
+    }
+
     private void updateUsernameSummary() {
         // Set username as summary if set
         String username = getPreferenceManager().getSharedPreferences().getString(KEY_USERNAME, "");
@@ -179,13 +213,8 @@ public class Preferences extends PreferenceActivity implements OnSharedPreferenc
     }
 
     private void updateFQDNSummary() {
-        // Set FQDN as summary if set
-        String fqdn = getPreferenceManager().getSharedPreferences().getString(KEY_FQDN, "");
-        if (fqdn.length() != 0) {
-            findPreference(KEY_FQDN).setSummary(fqdn);
-        } else {
-            findPreference(KEY_FQDN).setSummary(R.string.pref_fqdn_summary);
-        }
+        ListPreference listPref = (ListPreference) findPreference(KEY_FQDN);
+        listPref.setSummary(listPref.getEntry());
     }
 
     private void updateErrorNotificationSummary() {
