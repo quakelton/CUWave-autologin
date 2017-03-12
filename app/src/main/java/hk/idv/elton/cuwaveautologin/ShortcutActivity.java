@@ -15,7 +15,8 @@ public class ShortcutActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        boolean isLogout = getIntent().getBooleanExtra(MuWifiLogin.EXTRA_LOGOUT, false);
+        boolean isLogout = getIntent().getBooleanExtra(LoginRoute.EXTRA_LOGOUT, false);
+
         Utils.checkWifiAndDoLogin(this, isLogout);
 
         finish();
@@ -45,7 +46,7 @@ public class ShortcutActivity extends Activity {
 
     private static Intent createShortcutIntent(Context context, boolean isLogout) {
         Intent shortcutIntent = new Intent(ShortcutActivity.SHORTCUT_INTENT);
-        shortcutIntent.putExtra(MuWifiLogin.EXTRA_LOGOUT, isLogout);
+        shortcutIntent.putExtra(LoginRoute.EXTRA_LOGOUT, isLogout);
         shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             addClearTaskFlag(shortcutIntent);

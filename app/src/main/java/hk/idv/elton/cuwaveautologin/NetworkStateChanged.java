@@ -12,7 +12,7 @@ import android.util.Log;
 public class NetworkStateChanged extends BroadcastReceiver {
 
     private static final String TAG = "NetworkStateChanged";
-    private static final String[] SSID = {"ERGWAVE", "ERGWAVE-5g"};
+    public static final String[] SSID = {"CUHK", "ERGWAVE", "ERGWAVE_5g", "CUHKa"};
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -50,7 +50,7 @@ public class NetworkStateChanged extends BroadcastReceiver {
 
         Log.v(TAG, "Connected to the correct network");
 
-        Intent i = new Intent(context, MuWifiLogin.class);
+        Intent i = new Intent(context, LoginRoute.class);
         context.startService(i);
     }
 

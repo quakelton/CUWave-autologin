@@ -6,4 +6,5 @@
 *.ap_
 *.dex
 *.class
+*.iws
 *R.java

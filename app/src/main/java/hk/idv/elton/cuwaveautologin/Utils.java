@@ -161,9 +161,9 @@ public class Utils {
     public static void checkWifiAndDoLogin(Context context, boolean isLogout) {
         WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
         if (wifi.isWifiEnabled()) {
-            Intent i = new Intent(context, MuWifiLogin.class);
-            i.putExtra(MuWifiLogin.EXTRA_LOGOUT, isLogout);
-            i.putExtra(MuWifiLogin.EXTRA_USER_TRIGGERED, true);
+            Intent i = new Intent(context, LoginRoute.class);
+            i.putExtra(LoginRoute.EXTRA_LOGOUT, isLogout);
+            i.putExtra(LoginRoute.EXTRA_USER_TRIGGERED, true);
             context.startService(i);
         }
         else {
