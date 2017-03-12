@@ -27,7 +27,8 @@ import javax.net.ssl.X509TrustManager;
 public class MySSLSocketFactory extends SSLSocketFactory {
 
     private static final String TAG = "MySSLSocketFactory";
-    private static final String ADD_CIPHER_SUITE = "SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA";
+    private static final String ADD_CIPHER_SUITE_LEGACY = "SSL_DHE_RSA_WITH_3DES_EDE_CBC_SHA";
+    private static final String ADD_CIPHER_SUITE_API_23 = "SSL_RSA_WITH_3DES_EDE_CBC_SHA";
 
     private SSLContext mSslContext = SSLContext.getInstance("TLS");
 
@@ -36,8 +37,6 @@ public class MySSLSocketFactory extends SSLSocketFactory {
 
         // Basically a "trust-all" trust manager
         // (except if "trustedDer" is set, it will only trust that certificate)
-        // Cisco-based system uses an invalid certificate
-        // Aruba-based system uses *.mahidol.ac.th wildcard certificate and so this class should not be used.
         TrustManager tm = new X509TrustManager() {
             public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
             }
@@ -82,24 +81,32 @@ public class MySSLSocketFactory extends SSLSocketFactory {
     public Socket createSocket(Socket socket, String host, int port, boolean autoClose) throws IOException, UnknownHostException {
         SSLSocket ss = (SSLSocket) mSslContext.getSocketFactory().createSocket(socket, host, port, autoClose);
 
+        String addCipher;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            addCipher = ADD_CIPHER_SUITE_API_23;
+        } else {
+            addCipher = ADD_CIPHER_SUITE_LEGACY;
+        }
+
         // Lollipop disables TLS_ECDH_RSA_WITH_3DES_EDE_CBC_SHA used in
         // Aruba networks, so we must re-enable it
         String[] suites = ss.getEnabledCipherSuites();
         boolean foundSuite = false;
         for (int i = 0; i < suites.length; i++) {
-            if (ADD_CIPHER_SUITE.equals(suites[i])) {
+
+            if (addCipher.equals(suites[i])) {
                 foundSuite = true;
                 break;
             }
         }
 
         if (!foundSuite) {
-            Log.v(TAG, "Adding cipher suite " + ADD_CIPHER_SUITE);
+            Log.v(TAG, "Adding cipher suite " + addCipher);
             String[] newSuites = new String[suites.length + 1];
             for (int i = 0; i < suites.length; i++) {
                 newSuites[i] = suites[i];
             }
-            newSuites[suites.length] = ADD_CIPHER_SUITE;
+            newSuites[suites.length] = addCipher;
             ss.setEnabledCipherSuites(newSuites);
         }
 
