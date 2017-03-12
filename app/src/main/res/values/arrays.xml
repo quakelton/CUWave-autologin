@@ -9,4 +9,15 @@
 		<item>Default</item>
 		<item>English</item>
 	</string-array>
+
+	<string-array name="fqdn" translatable="false">
+		<item>CSE</item>
+		<item>EE</item>
+		<item>IE</item>
+		<item>MAE</item>
+		<item>SE</item>
+		<item>Log</item>
+		<item>ENO</item>
+		<item>ERG</item>
+	</string-array>
 </resources>

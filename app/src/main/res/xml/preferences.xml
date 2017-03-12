@@ -3,11 +3,21 @@
 	<Preference android:title="@string/pref_login_now" android:key="login_now"></Preference>
 	<Preference android:title="@string/pref_logout_now" android:key="logout_now"></Preference>
 	<PreferenceCategory android:title="@string/pref_preferences">
+
 		<CheckBoxPreference
 			android:defaultValue="false"
 			android:key="enabled"
 			android:title="@string/pref_enabled"
 			android:summary="@string/pref_enabled_summary"/>
+		<EditTextPreference
+			android:key="computingid"
+			android:title="@string/pref_cwem_username"
+			android:summary="@string/pref_cwem_username_summary"/>
+		<EditTextPreference
+			android:key="cwempassword"
+			android:password="true"
+			android:title="@string/pref_cwem_password"
+			android:summary="@string/pref_cwem_password_summary"/>
 		<EditTextPreference
 			android:key="username"
 			android:title="@string/pref_username"
@@ -17,10 +27,12 @@
 			android:password="true"
 			android:title="@string/pref_password"
 			android:summary="@string/pref_password_summary"/>
-		<EditTextPreference
-			android:key="fqdn"
+		<ListPreference
 			android:title="@string/pref_fqdn"
-			android:summary="@string/pref_fqdn_summary"/>
+			android:key="fqdn"
+			android:entries="@array/fqdn"
+			android:entryValues="@array/fqdn"
+			android:defaultValue=""/>
 		<PreferenceScreen
 			android:title="@string/pref_error_notify_title"
 			android:key="error_notify">
