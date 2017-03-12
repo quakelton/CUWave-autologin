@@ -1,4 +1,4 @@
-package hk.idv.elton.ergwaveautologin;
+package hk.idv.elton.cuwaveautologin;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -9,7 +9,7 @@ import android.os.Bundle;
 
 public class ShortcutActivity extends Activity {
 
-    public static final String SHORTCUT_INTENT = "hk.idv.elton.ergwaveautologin.SHORTCUT";
+    public static final String SHORTCUT_INTENT = "hk.idv.elton.cuwaveautologin.SHORTCUT";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

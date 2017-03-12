@@ -1,4 +1,4 @@
-package hk.idv.elton.ergwaveautologin;
+package hk.idv.elton.cuwaveautologin;
 
 public class LoginException extends Exception {
 

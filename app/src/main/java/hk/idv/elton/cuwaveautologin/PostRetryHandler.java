@@ -1,4 +1,4 @@
-package hk.idv.elton.ergwaveautologin;
+package hk.idv.elton.cuwaveautologin;
 
 import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.protocol.HttpContext;

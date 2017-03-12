@@ -1,4 +1,4 @@
-package hk.idv.elton.ergwaveautologin;
+package hk.idv.elton.cuwaveautologin;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
